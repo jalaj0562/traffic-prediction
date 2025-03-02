@@ -1,0 +1,338 @@
+/* Theme variables */
+:root {
+    /* Light theme (default) */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f5f6fa;
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --header-bg: #2c3e50;
+    --header-text: #ffffff;
+    --border-color: #dddddd;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --route-bg: #ffffff;
+    --traffic-panel-bg: rgba(255, 255, 255, 0.95);
+}
+
+/* Dark theme */
+[data-theme="dark"] {
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2d2d2d;
+    --text-primary: #ffffff;
+    --text-secondary: #cccccc;
+    --header-bg: #000000;
+    --header-text: #ffffff;
+    --border-color: #404040;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --route-bg: #2d2d2d;
+    --traffic-panel-bg: rgba(45, 45, 45, 0.95);
+}
+
+/* Global styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: var(--text-primary);
+    background-color: var(--bg-primary);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Header */
+header {
+    background-color: var(--header-bg);
+    color: var(--header-text);
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.theme-toggle {
+    background: none;
+    border: none;
+    color: var(--header-text);
+    cursor: pointer;
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+}
+
+.theme-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.weather-info, .current-time {
+    font-size: 0.9rem;
+    color: var(--header-text);
+}
+
+/* Main layout */
+main {
+    flex: 1;
+    display: flex;
+    position: relative;
+    height: calc(100vh - 60px);
+}
+
+.left-panel {
+    width: 300px;
+    padding: 1rem;
+    background-color: var(--bg-secondary);
+    overflow-y: auto;
+    z-index: 2;
+    box-shadow: 2px 0 5px var(--shadow-color);
+}
+
+.right-panel {
+    flex-grow: 1;
+    position: relative;
+}
+
+/* Map */
+#map {
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    background-color: var(--bg-primary);
+}
+
+/* Dark theme map adjustments */
+[data-theme="dark"] .leaflet-tile {
+    filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3) brightness(0.7);
+}
+
+[data-theme="dark"] .leaflet-container {
+    background: #303030;
+}
+
+[data-theme="dark"] .leaflet-control-attribution {
+    background: rgba(0, 0, 0, 0.8) !important;
+    color: #fff !important;
+}
+
+[data-theme="dark"] .leaflet-control-zoom a {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+/* Forms */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+.btn-primary {
+    background-color: #3498db;
+    color: white;
+    padding: 0.75rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+}
+
+/* Route items */
+.route-item {
+    background-color: var(--route-bg);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px var(--shadow-color);
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.3s;
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.route-item:hover {
+    transform: translateY(-2px);
+}
+
+.route-item.selected {
+    border: 2px solid #3498db;
+}
+
+.route-item.recommended {
+    border-left: 4px solid #27ae60;
+}
+
+.route-color-indicator {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+.route-details {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+/* Traffic conditions */
+.traffic-panel {
+    position: fixed;
+    bottom: 20px;
+    left: 320px;
+    right: 20px;
+    background-color: var(--traffic-panel-bg);
+    padding: 1rem;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px var(--shadow-color);
+    z-index: 2;
+    max-height: 200px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.traffic-panel h2 {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+#traffic-conditions {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+}
+
+.traffic-item {
+    background-color: var(--route-bg);
+    padding: 1rem;
+    border-radius: 4px;
+    min-width: 200px;
+    box-shadow: 0 1px 3px var(--shadow-color);
+    border: 1px solid var(--border-color);
+    transition: background-color 0.3s;
+}
+
+.traffic-item h4 {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    color: var(--text-primary);
+}
+
+/* Congestion levels */
+.congestion-low {
+    color: #27ae60;
+    font-weight: bold;
+}
+
+.congestion-moderate {
+    color: #f39c12;
+    font-weight: bold;
+}
+
+.congestion-high {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+.congestion-severe {
+    color: #c0392b;
+    font-weight: bold;
+}
+
+/* Error message */
+.error-message {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #e74c3c;
+    color: white;
+    padding: 1rem;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px var(--shadow-color);
+    display: none;
+    z-index: 1000;
+}
+
+/* Theme transition */
+* {
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+.error-message.show {
+    display: block;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    main {
+        flex-direction: column;
+    }
+    
+    .left-panel {
+        width: 100%;
+        height: auto;
+        max-height: 40vh;
+    }
+    
+    .right-panel {
+        height: 60vh;
+    }
+    
+    .traffic-panel {
+        left: 20px;
+        bottom: 70px;
+    }
+}
