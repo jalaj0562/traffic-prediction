@@ -78,6 +78,5 @@ npm start
 - Safari (latest)
 - Edge (latest)
 
-## License
-
-MIT License
+## Owner 
+JALAJ
